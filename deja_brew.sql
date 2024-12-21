@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3307
--- Generation Time: May 15, 2024 at 07:40 AM
+-- Host: 127.0.0.1:4306
+-- Generation Time: Dec 21, 2024 at 08:17 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,24 +41,15 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`customer_id`, `product_id`, `name`, `price`, `image`, `quantity`) VALUES
-(0, 19, 'espresso', '65', 'espresso.png', 1),
-(0, 35, 'Cake vegan', '75', 'Cake vegan.png', 1),
-(3, 31, 'special leche flan', '65', 'special leche flan.png', 1),
-(3, 35, 'Cake vegan', '75', 'Cake vegan.png', 1),
-(7, 27, 'cupcakes', '35', 'cupcake.png', 3),
-(7, 28, 'fig cupcake', '45', 'fig cupcake.png', 3),
-(7, 33, 'tripled layer choco cake', '69', 'tripled layer choco cake.png', 3),
-(7, 35, 'Cake vegan', '75', 'Cake vegan.png', 1),
-(8, 30, 'Mud Cake ', '55', 'Mud Cake Photography.png', 1),
-(8, 31, 'special leche flan', '65', 'special leche flan.png', 1),
-(8, 32, 'mocha caramel cake', '65', 'mocha caramel cake.png', 1),
-(9, 34, 'strawberry cream cake', '75', 'strawberry cream cake.png', 2),
-(10, 29, 'chuk coffe cake', '69', 'chuk coffe cake.png', 1),
-(11, 35, 'Cake vegan', '75', 'Cake vegan.png', 1),
-(12, 17, 'cappuccino', '99', 'Cappuccino.png', 1),
-(12, 18, 'classic coffee', '55', 'classic coffee.png', 1),
-(12, 19, 'espresso', '65', 'espresso.png', 1),
-(13, 19, 'espresso', '65', 'espresso.png', 1);
+(0, 18, 'classic coffee', '55', 'classic coffee.png', 3),
+(0, 25, 'Mocha Latte', '75', 'Mocha Latte.png', 2),
+(0, 26, 'croissant', '30', 'croissant.png', 1),
+(0, 27, 'cupcakes', '35', 'cupcake.png', 1),
+(1, 29, 'chuk coffe cake', '69', 'chuk coffe cake.png', 1),
+(2, 18, 'classic coffee', '55', 'classic coffee.png', 3),
+(3, 18, 'classic coffee', '55', 'classic coffee.png', 1),
+(4, 18, 'classic coffee', '55', 'classic coffee.png', 1),
+(4, 19, 'espresso', '65', 'espresso.png', 1);
 
 -- --------------------------------------------------------
 
@@ -81,9 +72,14 @@ CREATE TABLE `checkout` (
 --
 
 INSERT INTO `checkout` (`transaction_id`, `customer_id`, `method`, `date`, `total_products`, `total_price`, `user_id`) VALUES
-(127, 0, 'cash', '2024-05-02', 'espresso (1) , Cake vegan (1) ', '140', 24144914),
-(128, 12, 'cash', '2024-05-09', 'cappuccino (1) , classic coffee (1) , espresso (1) ', '219', 24144914),
-(129, 13, 'cash', '2024-05-13', 'espresso (1) ', '65', 24144914);
+(146, 0, 'GCash', '2024-12-17', 'classic coffee (1) , Mocha Latte (1) , cupcakes (1) ', '165', 74385625),
+(147, 1, 'cash', '2024-12-17', 'chuk coffe cake (1) ', '69', 74385625),
+(148, 0, 'cash', '2024-12-18', 'classic coffee (1) , Mocha Latte (1) , cupcakes (1) ', '165', 74385625),
+(149, 2, 'cash', '2024-12-18', 'classic coffee (3) ', '165', 74385625),
+(152, 0, 'cash', '2024-12-18', 'classic coffee (3) , Mocha Latte (1) , cupcakes (1) ', '275', 39373713),
+(153, 3, 'cash', '2024-12-18', 'classic coffee (1) ', '55', 39373713),
+(154, 0, 'cash', '2024-12-19', 'classic coffee (3) , Mocha Latte (1) , cupcakes (1) ', '275', 39373713),
+(155, 0, 'cash', '2024-12-21', 'classic coffee (3) , Mocha Latte (2) , croissant (1) , cupcakes (1) ', '380', 39373713);
 
 -- --------------------------------------------------------
 
@@ -119,8 +115,9 @@ INSERT INTO `products` (`id`, `name`, `price`, `image`) VALUES
 (34, 'strawberry cream cake', '75', 'strawberry cream cake.png'),
 (35, 'Cake vegan', '75', 'Cake vegan.png'),
 (36, 'Keto Caramel Macchiato', '99', 'Keto Caramel Macchiato.png'),
-(37, 'Caramel Coffee Banana Cake', '109', 'Caramel Coffee Banana Cake.png'),
-(38, 'matcha latte', '300', 'coffee caramel cake.png');
+(37, 'Caramel Coffee Banana Cake', '700', 'Caramel Coffee Banana Cake.png'),
+(43, 'Burger', '155', 'b_png-removebg-preview.png'),
+(44, 'Burger', '155', 'b_png-removebg-preview.png');
 
 -- --------------------------------------------------------
 
@@ -132,22 +129,24 @@ CREATE TABLE `users` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `user_name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `Role` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `user_id`, `user_name`, `password`) VALUES
-(14, 99332979, 'admin', 'admin123'),
-(15, 24144914, 'jerald', 'jmc123'),
-(17, 21162850, 'yumi', '123'),
-(18, 4634620, 'mark', 'mark1234'),
-(19, 94234574, 'lea', 'password'),
-(20, 74385625, 'jaysan', 'david123'),
-(21, 74655623, 'angelie', '1129'),
-(22, 27927287, 'rose', 'rose123');
+INSERT INTO `users` (`id`, `user_id`, `user_name`, `password`, `Role`) VALUES
+(20, 74385625, 'jaysan', 'david123', 'User'),
+(35, 85265574, 'jayrald', '$2y$10$uL5rjb6jva2Vtb8Pp/PgSuaIgjy33BqXuW.nQTy8hKqYI7Gq4Yzm2', 'User'),
+(36, 74263728, 'admin', '$2y$10$bj9wLQuYAbKBdLWmOyoR3eKtMSN8rXHwGfL44jPXpjZnYoO4OiM2.', 'Admin'),
+(38, 39373713, 'jaysan.edu.ph', '$2y$10$upXza6q5H7ppfjHixJOTSOgxG4pGNGZ/QjCvOzIf4QFJtCg8x0KES', 'User'),
+(39, 30961847, 'mia.edu.ph', '$2y$10$5wcPcEbkjy9yNXjxCwZebuGW7fQP.XKLAsuLl2ALqveQWhz1DANrm', 'User'),
+(40, 50893321, 'Charisse.edu.ph', '$2y$10$/wkXa05zr/RteYxCFM4f3ecPoZLxveNkJnYmulSnX/W/OrvWg53zG', 'User'),
+(41, 45392696, 'marjhon.edu.ph', '$2y$10$83txaBz3VnE.0Q89pLD49Od4z8/XjqZFMF0fEdZS2I6SIgKo3m92e', 'User'),
+(42, 24490942, 'reynier.edu.ph', '$2y$10$oYIHOPbzSgQ5lYULL.GKqeBaro3C2KWp/ZN40tky2ehXTCX3gLo/2', 'User'),
+(43, 48478766, 'luffykun', '$2y$10$JNFe0BMCGbQfo8aKmMDC7OP4DSKq9wnrPPYOeHHeuNxED1BIrCalu', 'User');
 
 --
 -- Indexes for dumped tables
@@ -190,19 +189,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `checkout`
 --
 ALTER TABLE `checkout`
-  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=130;
+  MODIFY `transaction_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- Constraints for dumped tables
